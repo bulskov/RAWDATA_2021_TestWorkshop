@@ -1,6 +1,7 @@
 ﻿using System.Reflection.Metadata.Ecma335;
 using DataServiceLib;
 using Microsoft.AspNetCore.Mvc;
+using WebService.ViewModels;
 
 namespace WebService.Controllers
 {
@@ -22,7 +23,15 @@ namespace WebService.Controllers
         public JsonResult GetCategory(int id)
         {
             var category = dataService.GetCategory(id);
-            return new JsonResult(category);
+
+            var model = new CategoryViewModel
+            {
+                Id = category.Id,
+                Name = category.Name,
+                Description = category.Description
+            };
+
+            return new JsonResult(model);
         }
     }
 }
