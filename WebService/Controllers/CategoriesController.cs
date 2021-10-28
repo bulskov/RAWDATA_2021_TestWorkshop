@@ -41,7 +41,7 @@ namespace WebService.Controllers
         {
             return new CategoryViewModel
             {
-                Id = category.Id,
+                Url = "http://localhost:5001/api/categories/" + category.Id,
                 Name = category.Name,
                 Description = category.Description
             };
