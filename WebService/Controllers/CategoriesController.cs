@@ -24,14 +24,20 @@ namespace WebService.Controllers
         {
             var category = dataService.GetCategory(id);
 
-            var model = new CategoryViewModel
+            var model = CreateCategoryViewModel(category);
+
+            return new JsonResult(model);
+        }
+
+
+        private CategoryViewModel CreateCategoryViewModel(Category category)
+        {
+            return new CategoryViewModel
             {
                 Id = category.Id,
                 Name = category.Name,
                 Description = category.Description
             };
-
-            return new JsonResult(model);
         }
     }
 }
