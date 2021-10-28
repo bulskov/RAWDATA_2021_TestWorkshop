@@ -6,6 +6,10 @@ namespace WebService.Controllers
     [Route("api/categories")]
     public class CategoriesController : Controller
     {
-        
+
+        public string DoSomething()
+        {
+            return "Hello from controller";
+        }
     }
 }
