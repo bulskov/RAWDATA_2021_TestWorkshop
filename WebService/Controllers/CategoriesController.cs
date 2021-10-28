@@ -1,4 +1,5 @@
-﻿using System.Reflection.Metadata.Ecma335;
+﻿using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using DataServiceLib;
 using Microsoft.AspNetCore.Mvc;
 using WebService.ViewModels;
@@ -10,19 +11,25 @@ namespace WebService.Controllers
     public class CategoriesController : Controller
     {
 
-        IDataService dataService = new DataService();
+        IDataService _dataService;
+
+        public CategoriesController(IDataService dataService)
+        {
+            _dataService = dataService;
+        }
 
         [HttpGet]
         public JsonResult GetCategories()
         {
-            var categories = dataService.GetCategories();
-            return new JsonResult(categories);
+            var categories = _dataService.GetCategories();
+            var model = categories.Select(CreateCategoryViewModel);
+            return new JsonResult(model);
         }
 
         [HttpGet("{id}")]
         public JsonResult GetCategory(int id)
         {
-            var category = dataService.GetCategory(id);
+            var category = _dataService.GetCategory(id);
 
             var model = CreateCategoryViewModel(category);
 

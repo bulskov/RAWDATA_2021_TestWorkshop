@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DataServiceLib;
 
 namespace WebService
 {
@@ -15,6 +16,8 @@ namespace WebService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddSingleton<IDataService, DataService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
