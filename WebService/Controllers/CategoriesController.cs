@@ -58,6 +58,17 @@ namespace WebService.Controllers
             return Created(GetUrl(category), CreateCategoryViewModel(category));
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult DeleteCategory(int id)
+        {
+            if (!_dataService.DeleteCategory(id))
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
+
 
         private CategoryViewModel CreateCategoryViewModel(Category category)
         {
