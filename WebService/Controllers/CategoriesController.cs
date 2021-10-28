@@ -22,21 +22,26 @@ namespace WebService.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetCategories()
+        public IActionResult GetCategories()
         {
             var categories = _dataService.GetCategories();
             var model = categories.Select(CreateCategoryViewModel);
-            return new JsonResult(model);
+            return Ok(model);
         }
 
         [HttpGet("{id}", Name = nameof(GetCategory))]
-        public JsonResult GetCategory(int id)
+        public IActionResult GetCategory(int id)
         {
             var category = _dataService.GetCategory(id);
 
+            if (category == null)
+            {
+                return NotFound();
+            }
+
             var model = CreateCategoryViewModel(category);
 
-            return new JsonResult(model);
+            return Ok(model);
         }
 
 
