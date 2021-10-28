@@ -55,7 +55,7 @@ namespace WebService.Controllers
 
             _dataService.CreateCategory(category);
 
-            return Created("", CreateCategoryViewModel(category));
+            return Created(GetUrl(category), CreateCategoryViewModel(category));
         }
 
 
@@ -63,10 +63,15 @@ namespace WebService.Controllers
         {
             return new CategoryViewModel
             {
-                Url = _linkGenerator.GetUriByName(HttpContext, nameof(GetCategory), new { category.Id}),
+                Url = GetUrl(category),
                 Name = category.Name,
                 Description = category.Description
             };
+        }
+
+        private string GetUrl(Category category)
+        {
+            return _linkGenerator.GetUriByName(HttpContext, nameof(GetCategory), new { category.Id });
         }
     }
 }
