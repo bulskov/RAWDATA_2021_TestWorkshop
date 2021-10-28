@@ -44,6 +44,20 @@ namespace WebService.Controllers
             return Ok(model);
         }
 
+        [HttpPost]
+        public IActionResult CreateCategory(CreateCategoryViewModel model)
+        {
+            var category = new Category
+            {
+                Name = model.Name,
+                Description = model.Description
+            };
+
+            _dataService.CreateCategory(category);
+
+            return Created("", CreateCategoryViewModel(category));
+        }
+
 
         private CategoryViewModel CreateCategoryViewModel(Category category)
         {
