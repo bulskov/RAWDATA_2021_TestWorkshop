@@ -69,6 +69,24 @@ namespace WebService.Controllers
             return NoContent();
         }
 
+        [HttpPut("{id}")]
+        public IActionResult UpdateCategory(int id, CreateCategoryViewModel model)
+        {
+            var category = new Category
+            {
+                Id = id,
+                Name = model.Name,
+                Description = model.Description
+            };
+
+            if (!_dataService.UpdateCategory(category))
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
+
 
         private CategoryViewModel CreateCategoryViewModel(Category category)
         {
