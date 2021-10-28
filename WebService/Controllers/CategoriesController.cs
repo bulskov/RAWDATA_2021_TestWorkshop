@@ -17,5 +17,12 @@ namespace WebService.Controllers
             var categories = dataService.GetCategories();
             return new JsonResult(categories);
         }
+
+        [HttpGet("{id}")]
+        public JsonResult GetCategory(int id)
+        {
+            var category = dataService.GetCategory(id);
+            return new JsonResult(category);
+        }
     }
 }
