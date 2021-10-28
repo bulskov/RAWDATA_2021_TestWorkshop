@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Reflection.Metadata.Ecma335;
+using DataServiceLib;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebService.Controllers
 {
@@ -7,9 +9,13 @@ namespace WebService.Controllers
     public class CategoriesController : Controller
     {
 
-        public string DoSomething()
+        IDataService dataService = new DataService();
+
+        [HttpGet]
+        public JsonResult GetCategories()
         {
-            return "Hello from controller";
+            var categories = dataService.GetCategories();
+            return new JsonResult(categories);
         }
     }
 }
