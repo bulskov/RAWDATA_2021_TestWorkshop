@@ -2,6 +2,7 @@
 using System.Reflection.Metadata.Ecma335;
 using DataServiceLib;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using WebService.ViewModels;
 
 namespace WebService.Controllers
@@ -11,11 +12,13 @@ namespace WebService.Controllers
     public class CategoriesController : Controller
     {
 
-        IDataService _dataService;
+        private readonly IDataService _dataService;
+        private readonly LinkGenerator _linkGenerator;
 
-        public CategoriesController(IDataService dataService)
+        public CategoriesController(IDataService dataService, LinkGenerator linkGenerator)
         {
             _dataService = dataService;
+            _linkGenerator = linkGenerator;
         }
 
         [HttpGet]
@@ -26,7 +29,7 @@ namespace WebService.Controllers
             return new JsonResult(model);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = nameof(GetCategory))]
         public JsonResult GetCategory(int id)
         {
             var category = _dataService.GetCategory(id);
@@ -41,7 +44,7 @@ namespace WebService.Controllers
         {
             return new CategoryViewModel
             {
-                Url = "http://localhost:5001/api/categories/" + category.Id,
+                Url = _linkGenerator.GetUriByName(HttpContext, nameof(GetCategory), new { category.Id}),
                 Name = category.Name,
                 Description = category.Description
             };
