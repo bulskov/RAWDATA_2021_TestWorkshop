@@ -18,6 +18,8 @@ namespace WebService
             services.AddCors();
             services.AddMvc();
 
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddSingleton<IDataService, DataService>();
         }
 
