@@ -15,6 +15,7 @@ namespace WebService
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddMvc();
 
             services.AddSingleton<IDataService, DataService>();
@@ -28,6 +29,12 @@ namespace WebService
             }
 
             app.UseRouting();
+
+            app.UseCors(x => x
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true)
+                .AllowCredentials());
 
             app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
