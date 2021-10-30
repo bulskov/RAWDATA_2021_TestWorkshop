@@ -50,12 +50,8 @@ namespace WebService.Controllers
         [HttpPost]
         public IActionResult CreateCategory(CreateCategoryViewModel model)
         {
-            var category = new Category
-            {
-                Name = model.Name,
-                Description = model.Description
-            };
-
+            var category = _mapper.Map<Category>(model);
+            
             _dataService.CreateCategory(category);
 
             return Created(GetUrl(category), CreateCategoryViewModel(category));
@@ -75,12 +71,8 @@ namespace WebService.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateCategory(int id, CreateCategoryViewModel model)
         {
-            var category = new Category
-            {
-                Id = id,
-                Name = model.Name,
-                Description = model.Description
-            };
+            var category = _mapper.Map<Category>(model);
+            category.Id = id;
 
             if (!_dataService.UpdateCategory(category))
             {
