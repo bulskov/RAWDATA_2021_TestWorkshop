@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Reflection.Metadata.Ecma335;
+using AutoMapper;
 using DataServiceLib;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -14,11 +15,13 @@ namespace WebService.Controllers
 
         private readonly IDataService _dataService;
         private readonly LinkGenerator _linkGenerator;
+        private readonly IMapper _mapper;
 
-        public CategoriesController(IDataService dataService, LinkGenerator linkGenerator)
+        public CategoriesController(IDataService dataService, LinkGenerator linkGenerator, IMapper mapper)
         {
             _dataService = dataService;
             _linkGenerator = linkGenerator;
+            _mapper = mapper;
         }
 
         [HttpGet]
