@@ -13,6 +13,7 @@ namespace WebService.ViewModels.Profiles
         public CategoryProfile()
         {
             CreateMap<Category, CategoryViewModel>();
+            CreateMap<CreateCategoryViewModel, Category>();
         }
     }
 }
