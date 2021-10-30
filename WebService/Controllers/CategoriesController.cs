@@ -93,12 +93,9 @@ namespace WebService.Controllers
 
         private CategoryViewModel CreateCategoryViewModel(Category category)
         {
-            return new CategoryViewModel
-            {
-                Url = GetUrl(category),
-                Name = category.Name,
-                Description = category.Description
-            };
+            var model = _mapper.Map<CategoryViewModel>(category);
+            model.Url = GetUrl(category);
+            return model;
         }
 
         private string GetUrl(Category category)
